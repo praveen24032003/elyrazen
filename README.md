@@ -132,6 +132,115 @@ Files already prepared for Railway:
    - lead submissions reach Supabase
    - admin login works only for ADMIN_EMAIL
 
+### Elyra Zen Launch Checklist
+
+Current Supabase project details for this deployment:
+- Project ref: `fdupxuigrprthbgieipp`
+- Project URL: `https://fdupxuigrprthbgieipp.supabase.co`
+- Admin email allowlist: `elyrazen.in@gmail.com`
+
+Final Railway launch steps for this exact setup:
+
+1. In Railway, deploy this repository as a single web service.
+2. Add these env vars exactly:
+   - `SUPABASE_URL=https://fdupxuigrprthbgieipp.supabase.co`
+   - `SUPABASE_SERVICE_ROLE_KEY=<your service role key>`
+   - `VITE_SUPABASE_URL=https://fdupxuigrprthbgieipp.supabase.co`
+   - `VITE_SUPABASE_ANON_KEY=<your publishable or anon key>`
+   - `ADMIN_EMAIL=elyrazen.in@gmail.com`
+   - optional: `LEAD_WEBHOOK_URL=<your CRM or automation webhook>`
+   - optional: `LEAD_RATE_LIMIT_MS=60000`
+3. Do not hardcode `PORT` on Railway unless required; Railway injects it automatically.
+4. After the first successful deploy, open `/api/health` on the Railway domain and confirm the response shows `Connected (Supabase)`.
+5. Call `POST /api/seed` once if products are not yet present in Supabase.
+6. Confirm `GET /api/products` returns live database-backed products.
+7. Test lead capture from the live site and confirm rows appear in the `leads` table.
+8. Sign in with Google on the live site and confirm only `elyrazen.in@gmail.com` can access `/admin`.
+9. Open the Audit tab in admin and confirm view/export actions create rows in `admin_audit_logs`.
+10. If using Google OAuth in production, set the Google provider redirect URI to:
+    - `https://fdupxuigrprthbgieipp.supabase.co/auth/v1/callback`
+
+### Railway Env Copy-Paste Checklist
+
+Use this as the exact value checklist inside Railway Variables for the Elyra Zen production service:
+
+```env
+SUPABASE_URL=https://fdupxuigrprthbgieipp.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=<paste-your-supabase-service-role-key>
+VITE_SUPABASE_URL=https://fdupxuigrprthbgieipp.supabase.co
+VITE_SUPABASE_ANON_KEY=<paste-your-supabase-anon-or-publishable-key>
+ADMIN_EMAIL=elyrazen.in@gmail.com
+LEAD_RATE_LIMIT_MS=60000
+LEAD_WEBHOOK_URL=<optional-webhook-url>
+```
+
+Notes:
+- Leave `PORT` unset on Railway.
+- Do not paste `HMR_PORT` into Railway; it is only for local development.
+- Keep `SUPABASE_SERVICE_ROLE_KEY` server-only and never expose it in frontend code.
+- `VITE_SUPABASE_ANON_KEY` is safe for the browser, but it must be the publishable/anon key only.
+
+### Custom Domain Readiness Checklist
+
+Before connecting a custom domain:
+
+1. Decide your canonical production host:
+   - example: `elyrazen.in` or `www.elyrazen.in`
+2. Add the domain in Railway and apply the DNS records Railway gives you.
+3. Wait for SSL certificate issuance to complete in Railway.
+4. Update Supabase Auth URL Configuration:
+   - Site URL: your canonical production domain
+   - Redirect URLs:
+     - your canonical production domain
+     - any alternate domain you will allow during sign-in
+5. Update Google Cloud OAuth Authorized JavaScript origins:
+   - your canonical production domain
+   - any `www` variant you will support
+6. Keep this redirect URI in Google Cloud OAuth:
+   - `https://fdupxuigrprthbgieipp.supabase.co/auth/v1/callback`
+7. Replace placeholder domain values in site metadata and SEO tags if any remain.
+8. Verify these after DNS goes live:
+   - home page loads on the custom domain
+   - `/api/health` works on the custom domain
+   - Google sign-in returns to the custom domain successfully
+   - canonical URL and Open Graph tags point to the custom domain
+   - sitemap and robots are served from the custom domain
+9. Choose one canonical host only and redirect the other:
+   - `elyrazen.in` -> `www.elyrazen.in`, or
+   - `www.elyrazen.in` -> `elyrazen.in`
+
+### elyrazen.in Domain Setup Flow
+
+Recommended canonical host for this project:
+- `https://elyrazen.in`
+
+Step by step:
+
+1. Deploy the app first on Railway's generated domain and confirm `/api/health` works.
+2. In Railway, open your service settings and add custom domains:
+   - `elyrazen.in`
+   - optionally `www.elyrazen.in`
+3. In your DNS provider, create the exact DNS records Railway requests.
+4. Wait for Railway SSL to become active for `elyrazen.in`.
+5. In Supabase Auth -> URL Configuration, set:
+   - Site URL: `https://elyrazen.in`
+   - Redirect URLs:
+     - `https://elyrazen.in`
+     - `https://www.elyrazen.in`
+     - your temporary Railway domain until the cutover is complete
+6. In Google Cloud Console -> OAuth Client:
+   - Authorized JavaScript origins:
+     - `https://elyrazen.in`
+     - `https://www.elyrazen.in`
+   - Authorized redirect URI:
+     - `https://fdupxuigrprthbgieipp.supabase.co/auth/v1/callback`
+7. After DNS is live, verify:
+   - `https://elyrazen.in`
+   - `https://elyrazen.in/api/health`
+   - Google sign-in round trip back to `https://elyrazen.in`
+   - admin login still restricts access to `elyrazen.in@gmail.com`
+8. If you also use `www`, configure one permanent redirect target and keep only one canonical host in metadata.
+
 ### Railway Build/Start Commands
 
 - Build: npm ci && npm run build
@@ -245,4 +354,4 @@ Use these names as-is in GA4 custom events for clean reporting.
 
 - Robots and sitemap are configured in public assets.
 - index.html includes Open Graph, Twitter tags, canonical, and LocalBusiness JSON-LD.
-- Replace placeholder domain values (elyra-zen.example.com) with your production domain before launch.
+- Production domain metadata is now set to `https://elyrazen.in`. If you decide to use `https://www.elyrazen.in` instead, update canonical, Open Graph, robots, and sitemap together.
