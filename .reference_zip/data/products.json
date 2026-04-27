@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1",
+    "name": "ZenHub Pro",
+    "description": "The central nervous system of your smart home. Minimalist design, maxmimum control.",
+    "category": "Core Hub",
+    "imageUrl": "https://picsum.photos/seed/smarthub/800/600",
+    "price": "Contact for Pricing"
+  },
+  {
+    "id": "2",
+    "name": "Lumina Ambient Kit",
+    "description": "Invisible lighting that synchronizes with your natural rhythm and mood.",
+    "category": "Lighting",
+    "imageUrl": "https://picsum.photos/seed/lighting/800/600",
+    "price": "Contact for Pricing"
+  },
+  {
+    "id": "3",
+    "name": "Elyra Security One",
+    "description": "360-degree security with discrete sensors and instant facial recognition.",
+    "category": "Security",
+    "imageUrl": "https://picsum.photos/seed/security/800/600",
+    "price": "Contact for Pricing"
+  },
+  {
+    "id": "4",
+    "name": "ClimateMaster X",
+    "description": "Precision temperature and air quality control that learns your preferences.",
+    "category": "Climate",
+    "imageUrl": "https://picsum.photos/seed/climate/800/600",
+    "price": "Contact for Pricing"
+  }
+]

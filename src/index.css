@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-gold: #d4af37;
+}
+
+:root {
+  --brand-gold: #c9a84a;
+  --brand-gold-soft: #f1e6bf;
+  --brand-gold-deep: #8d6f22;
+}
+
+[data-gold-tone='subtle'] {
+  --brand-gold: #c9a84a;
+  --brand-gold-soft: #f1e6bf;
+  --brand-gold-deep: #8d6f22;
+}
+
+[data-gold-tone='bold'] {
+  --brand-gold: #e0b933;
+  --brand-gold-soft: #faecba;
+  --brand-gold-deep: #ab7f16;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#f5f5f7] text-black antialiased font-sans selection:bg-black selection:text-white;
+  }
+}
+
+.gold-text {
+  color: var(--brand-gold-deep);
+}
+
+.gold-border {
+  border-color: var(--brand-gold);
+}
+
+.gold-bg {
+  background: linear-gradient(135deg, var(--brand-gold-soft), var(--brand-gold));
+}
+
+.gold-ring-soft {
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.3) inset;
+}
+
+.brand-marquee-mask::before,
+.brand-marquee-mask::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.brand-marquee-mask::before {
+  left: 0;
+  background: linear-gradient(to right, #f8f8f8 10%, rgba(248, 248, 248, 0));
+}
+
+.brand-marquee-mask::after {
+  right: 0;
+  background: linear-gradient(to left, #f8f8f8 10%, rgba(248, 248, 248, 0));
+}
+
+.brand-marquee-track {
+  animation: brands-scroll 30s linear infinite;
+}
+
+.brand-marquee-track--reverse {
+  animation-direction: reverse;
+}
+
+.brand-marquee-mask:hover .brand-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes brands-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

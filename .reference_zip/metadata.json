@@ -1,0 +1,6 @@
+{
+  "name": "Elyra Zen",
+  "description": "Premium Home Automation Website featuring interactive 3D floor plans, voice control, and installation-aware eCommerce.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": []
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "cs-1",
+    "title": "Luxury Villa Full-Suite Automation",
+    "location": "Coimbatore",
+    "propertyType": "Residential Villa",
+    "scope": ["Lighting", "Security", "Curtains", "Locks", "Gate Automation"],
+    "result": "38% lower energy usage with scene automation and occupancy scheduling.",
+    "highlight": "Single-app control for 72 endpoints.",
+    "imageUrl": "https://picsum.photos/seed/case-villa/1200/800"
+  },
+  {
+    "id": "cs-2",
+    "title": "School Campus Smart Security Rollout",
+    "location": "South India",
+    "propertyType": "Educational Campus",
+    "scope": ["CCTV", "Access Control", "Remote Monitoring"],
+    "result": "Centralized monitoring reduced response time by 55%.",
+    "highlight": "Multi-zone analytics and secure access logs.",
+    "imageUrl": "https://picsum.photos/seed/case-campus/1200/800"
+  },
+  {
+    "id": "cs-3",
+    "title": "Premium Apartment Smart Living Upgrade",
+    "location": "Chennai",
+    "propertyType": "Apartment",
+    "scope": ["Scene Lighting", "Smart Locks", "Voice Control"],
+    "result": "Improved daily convenience with 1-tap Home, Away, and Night scenes.",
+    "highlight": "Zero-learning-curve controls for all family members.",
+    "imageUrl": "https://picsum.photos/seed/case-apartment/1200/800"
+  }
+]
